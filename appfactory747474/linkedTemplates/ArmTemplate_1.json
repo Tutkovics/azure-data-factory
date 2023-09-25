@@ -25,6 +25,276 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/DimProduct_Table')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "dataworkspace747474_pooldb_service",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "ProductSK",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ProductID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ProductModelID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ProductcategoryID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ProductName",
+						"type": "varchar"
+					},
+					{
+						"name": "ProductModelName",
+						"type": "varchar"
+					},
+					{
+						"name": "ProductCategoryName",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "DimProduct"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FactSales_Table')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "dataworkspace747474_pooldb_service",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "ProductID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SalesOrderID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CustomerID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "OrderQty",
+						"type": "smallint",
+						"precision": 5
+					},
+					{
+						"name": "UnitPrice",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "OrderDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "TaxAmt",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "TotalAmount",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "FactSales"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LogDataParquet')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "datalake747474_service",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "parquet"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "Correlation_id",
+						"type": "UTF8"
+					},
+					{
+						"name": "Operation_name",
+						"type": "UTF8"
+					},
+					{
+						"name": "Status",
+						"type": "UTF8"
+					},
+					{
+						"name": "Event_category",
+						"type": "UTF8"
+					},
+					{
+						"name": "Level",
+						"type": "UTF8"
+					},
+					{
+						"name": "Time",
+						"type": "INT96"
+					},
+					{
+						"name": "Subscription",
+						"type": "UTF8"
+					},
+					{
+						"name": "Event_initiated_by",
+						"type": "UTF8"
+					},
+					{
+						"name": "Resource_type",
+						"type": "UTF8"
+					},
+					{
+						"name": "Resource_group",
+						"type": "UTF8"
+					},
+					{
+						"name": "Resource",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ProductCategory_Table')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "appdb_service",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "ProductCategoryID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ParentProductCategoryID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Name",
+						"type": "nvarchar"
+					},
+					{
+						"name": "rowguid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "SalesLT",
+					"table": "ProductCategory"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ProductModel_table')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "appdb_service",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "ProductModelID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Name",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CatalogDescription",
+						"type": "xml"
+					},
+					{
+						"name": "rowguid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "SalesLT",
+					"table": "ProductModel"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SalesOrderDetail_Table')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1043,7 +1313,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/logdataCSV')]"
+				"[concat(variables('factoryId'), '/datasets/logdataCSV')]",
+				"[concat(variables('factoryId'), '/datasets/LogDataParquet')]"
 			]
 		},
 		{
@@ -1428,728 +1699,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/SourceDataset_mes')]",
-				"[concat(variables('factoryId'), '/datasets/logdata_parquet')]",
-				"[concat(variables('factoryId'), '/datasets/pool_logdata_parquet')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/03-Copy-UsingQuery')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy_wrf",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [
-							{
-								"name": "Source",
-								"value": "."
-							},
-							{
-								"name": "Destination",
-								"value": "dbo.FactSales"
-							}
-						],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT dt.[ProductID],dt.[SalesOrderID],dt.[OrderQty],dt.[UnitPrice],hd.[OrderDate],hd.[CustomerID],hd.[TaxAmt]\n  FROM [SalesLT].[SalesOrderDetail] dt\n  LEFT JOIN [SalesLT].[SalesOrderHeader] hd\n  ON dt.[SalesOrderID]=hd.[SalesOrderID]",
-								"partitionOption": "None"
-							},
-							"sink": {
-								"type": "SqlDWSink",
-								"writeBehavior": "Insert"
-							},
-							"enableStaging": false,
-							"validateDataConsistency": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "ProductID",
-											"type": "Int32",
-											"physicalType": "int"
-										},
-										"sink": {
-											"name": "ProductID",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "SalesOrderID",
-											"type": "Int32",
-											"physicalType": "int"
-										},
-										"sink": {
-											"name": "SalesOrderID",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "CustomerID",
-											"type": "Int32",
-											"physicalType": "int"
-										},
-										"sink": {
-											"name": "CustomerID",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "OrderQty",
-											"type": "Int16",
-											"physicalType": "smallint"
-										},
-										"sink": {
-											"name": "OrderQty",
-											"type": "Int16",
-											"physicalType": "smallint"
-										}
-									},
-									{
-										"source": {
-											"name": "UnitPrice",
-											"type": "Decimal",
-											"physicalType": "money",
-											"scale": 4,
-											"precision": 19
-										},
-										"sink": {
-											"name": "UnitPrice",
-											"type": "Decimal",
-											"physicalType": "money",
-											"scale": 4,
-											"precision": 19
-										}
-									},
-									{
-										"source": {
-											"name": "OrderDate",
-											"type": "DateTime",
-											"physicalType": "datetime"
-										},
-										"sink": {
-											"name": "OrderDate",
-											"type": "DateTime",
-											"physicalType": "datetime"
-										}
-									},
-									{
-										"source": {
-											"name": "TaxAmt",
-											"type": "Decimal",
-											"physicalType": "money",
-											"scale": 4,
-											"precision": 19
-										},
-										"sink": {
-											"name": "TaxAmt",
-											"type": "Decimal",
-											"physicalType": "money",
-											"scale": 4,
-											"precision": 19
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "SourceDataset_wrf",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DestinationDataset_wrf",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": [],
-				"lastPublishTime": "2023-09-18T14:37:38Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SourceDataset_wrf')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/FileBinary')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "appvm_server",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Binary",
-				"typeProperties": {
-					"location": {
-						"type": "FileServerLocation",
-						"fileName": "access.log"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/appvm_server')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/01_dataflow_FactSales')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "SalesOrderDetail_Table",
-								"type": "DatasetReference"
-							},
-							"name": "SalesOrderDetailstream"
-						},
-						{
-							"dataset": {
-								"referenceName": "SalesOrderHeaderTable",
-								"type": "DatasetReference"
-							},
-							"name": "SalesOrderHeaderstream"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "FactSales_Table",
-								"type": "DatasetReference"
-							},
-							"name": "FactSalesStream"
-						}
-					],
-					"transformations": [
-						{
-							"name": "SalesOrderDetailjoinSalesOrderHeader"
-						},
-						{
-							"name": "selectcolumnstream"
-						},
-						{
-							"name": "totalAmountStream"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          SalesOrderID as integer,",
-						"          SalesOrderDetailID as integer,",
-						"          OrderQty as integer,",
-						"          ProductID as integer,",
-						"          UnitPrice as decimal(19,4),",
-						"          UnitPriceDiscount as decimal(19,4),",
-						"          LineTotal as decimal(38,6),",
-						"          rowguid as string,",
-						"          ModifiedDate as timestamp",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     isolationLevel: 'READ_UNCOMMITTED',",
-						"     format: 'table') ~> SalesOrderDetailstream",
-						"source(output(",
-						"          SalesOrderID as integer,",
-						"          RevisionNumber as integer,",
-						"          OrderDate as timestamp,",
-						"          DueDate as timestamp,",
-						"          ShipDate as timestamp,",
-						"          Status as integer,",
-						"          OnlineOrderFlag as boolean,",
-						"          SalesOrderNumber as string,",
-						"          PurchaseOrderNumber as string,",
-						"          AccountNumber as string,",
-						"          CustomerID as integer,",
-						"          ShipToAddressID as integer,",
-						"          BillToAddressID as integer,",
-						"          ShipMethod as string,",
-						"          CreditCardApprovalCode as string,",
-						"          SubTotal as decimal(19,4),",
-						"          TaxAmt as decimal(19,4),",
-						"          Freight as decimal(19,4),",
-						"          TotalDue as decimal(19,4),",
-						"          Comment as string,",
-						"          rowguid as string,",
-						"          ModifiedDate as timestamp",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     isolationLevel: 'READ_UNCOMMITTED',",
-						"     format: 'table') ~> SalesOrderHeaderstream",
-						"SalesOrderDetailstream, SalesOrderHeaderstream join(SalesOrderDetailstream@SalesOrderID == SalesOrderHeaderstream@SalesOrderID,",
-						"     joinType:'left',",
-						"     matchType:'exact',",
-						"     ignoreSpaces: false,",
-						"     broadcast: 'auto')~> SalesOrderDetailjoinSalesOrderHeader",
-						"SalesOrderDetailjoinSalesOrderHeader select(mapColumn(",
-						"          SalesOrderID = SalesOrderDetailstream@SalesOrderID,",
-						"          OrderQty,",
-						"          ProductID,",
-						"          UnitPrice,",
-						"          CustomerID,",
-						"          TaxAmt,",
-						"          OrderDate",
-						"     ),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> selectcolumnstream",
-						"selectcolumnstream derive(TotalAmount = multiply(OrderQty,UnitPrice)) ~> totalAmountStream",
-						"totalAmountStream sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     input(",
-						"          ProductID as integer,",
-						"          SalesOrderID as integer,",
-						"          CustomerID as integer,",
-						"          OrderQty as integer,",
-						"          UnitPrice as decimal(19,4),",
-						"          OrderDate as timestamp,",
-						"          TaxAmt as decimal(19,4),",
-						"          TotalAmount as decimal(19,4)",
-						"     ),",
-						"     deletable:false,",
-						"     insertable:true,",
-						"     updateable:false,",
-						"     upsertable:false,",
-						"     format: 'table',",
-						"     staged: true,",
-						"     allowCopyCommand: true,",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError',",
-						"     mapColumn(",
-						"          ProductID,",
-						"          SalesOrderID,",
-						"          CustomerID,",
-						"          OrderQty,",
-						"          UnitPrice,",
-						"          OrderDate,",
-						"          TaxAmt,",
-						"          TotalAmount",
-						"     )) ~> FactSalesStream"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SalesOrderDetail_Table')]",
-				"[concat(variables('factoryId'), '/datasets/SalesOrderHeaderTable')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/02_dataflow_Dim')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "CustomerCSV",
-								"type": "DatasetReference"
-							},
-							"name": "Customerstream"
-						},
-						{
-							"dataset": {
-								"referenceName": "AzureSqlTable1",
-								"type": "DatasetReference"
-							},
-							"name": "Productstream"
-						},
-						{
-							"dataset": {
-								"referenceName": "ProductModel_table",
-								"type": "DatasetReference"
-							},
-							"name": "ProductModelstream"
-						},
-						{
-							"dataset": {
-								"referenceName": "ProductCategory_Table",
-								"type": "DatasetReference"
-							},
-							"name": "ProductCategorystream"
-						},
-						{
-							"dataset": {
-								"referenceName": "DimCustomer_table",
-								"type": "DatasetReference"
-							},
-							"name": "GETMAXCustomerSK"
-						},
-						{
-							"dataset": {
-								"referenceName": "DimProduct_Table",
-								"type": "DatasetReference"
-							},
-							"name": "DimProductLatest"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "AzureSynapseAnalyticsTable1",
-								"type": "DatasetReference"
-							},
-							"name": "DimCustomerstream"
-						},
-						{
-							"dataset": {
-								"referenceName": "DimProduct_Table",
-								"type": "DatasetReference"
-							},
-							"name": "DimProductionStream"
-						},
-						{
-							"name": "CustomerSKsink"
-						}
-					],
-					"transformations": [
-						{
-							"name": "ProductjoinProductModel"
-						},
-						{
-							"name": "joinProductCategory"
-						},
-						{
-							"name": "selectcolumns"
-						},
-						{
-							"name": "ProductSKstream"
-						},
-						{
-							"name": "selectcolumnscustomer"
-						},
-						{
-							"name": "CustomerSKstream"
-						},
-						{
-							"name": "CustomerSKUpdated"
-						},
-						{
-							"name": "DoesProductExists1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          CustomerID as string,",
-						"          NameStyle as string,",
-						"          Title as string,",
-						"          FirstName as string,",
-						"          MiddleName as string,",
-						"          LastName as string,",
-						"          Suffix as string,",
-						"          CompanyName as string,",
-						"          SalesPerson as string,",
-						"          EmailAddress as string,",
-						"          Phone as string,",
-						"          PasswordHash as string,",
-						"          PasswordSalt as string,",
-						"          rowguid as string,",
-						"          ModifiedDate as string",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false) ~> Customerstream",
-						"source(output(",
-						"          ProductID as integer,",
-						"          Name as string,",
-						"          ProductNumber as string,",
-						"          Color as string,",
-						"          StandardCost as decimal(19,4),",
-						"          ListPrice as decimal(19,4),",
-						"          Size as string,",
-						"          Weight as decimal(8,2),",
-						"          ProductCategoryID as integer,",
-						"          ProductModelID as integer,",
-						"          SellStartDate as timestamp,",
-						"          SellEndDate as timestamp,",
-						"          DiscontinuedDate as timestamp,",
-						"          ThumbNailPhoto as binary,",
-						"          ThumbnailPhotoFileName as string,",
-						"          rowguid as string,",
-						"          ModifiedDate as timestamp",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     isolationLevel: 'READ_UNCOMMITTED',",
-						"     format: 'table') ~> Productstream",
-						"source(output(",
-						"          ProductModelID as integer,",
-						"          Name as string,",
-						"          CatalogDescription as string,",
-						"          rowguid as string,",
-						"          ModifiedDate as timestamp",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     isolationLevel: 'READ_UNCOMMITTED',",
-						"     format: 'table') ~> ProductModelstream",
-						"source(output(",
-						"          ProductCategoryID as integer,",
-						"          ParentProductCategoryID as integer,",
-						"          Name as string,",
-						"          rowguid as string,",
-						"          ModifiedDate as timestamp",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     isolationLevel: 'READ_UNCOMMITTED',",
-						"     format: 'table') ~> ProductCategorystream",
-						"source(output(",
-						"          CustomerSK as integer",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     isolationLevel: 'READ_UNCOMMITTED',",
-						"     query: 'SELECT MAX([CustomerSK]) as CustomerSK FROM [dbo].[DimCustomer]',",
-						"     format: 'query',",
-						"     staged: true) ~> GETMAXCustomerSK",
-						"source(output(",
-						"          ProductSK as integer,",
-						"          ProductID as integer,",
-						"          ProductModelID as integer,",
-						"          ProductcategoryID as integer,",
-						"          ProductName as string,",
-						"          ProductModelName as string,",
-						"          ProductCategoryName as string",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     isolationLevel: 'READ_UNCOMMITTED',",
-						"     format: 'table',",
-						"     staged: true) ~> DimProductLatest",
-						"DoesProductExists1, ProductModelstream join(Productstream@ProductModelID == ProductModelstream@ProductModelID,",
-						"     joinType:'left',",
-						"     matchType:'exact',",
-						"     ignoreSpaces: false,",
-						"     broadcast: 'auto')~> ProductjoinProductModel",
-						"ProductjoinProductModel, ProductCategorystream join(Productstream@ProductCategoryID == ProductCategorystream@ProductCategoryID,",
-						"     joinType:'left',",
-						"     matchType:'exact',",
-						"     ignoreSpaces: false,",
-						"     broadcast: 'auto')~> joinProductCategory",
-						"joinProductCategory select(mapColumn(",
-						"          ProductID,",
-						"          ProductName = Productstream@Name,",
-						"          ProductCategoryID = Productstream@ProductCategoryID,",
-						"          ProductModelID = Productstream@ProductModelID,",
-						"          ProductModelID = ProductModelstream@ProductModelID,",
-						"          ProductModelName = ProductModelstream@Name,",
-						"          ProductCategoryName = ProductCategorystream@Name",
-						"     ),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> selectcolumns",
-						"selectcolumns keyGenerate(output(ProductSK as long),",
-						"     startAt: 1L,",
-						"     stepValue: 1L) ~> ProductSKstream",
-						"Customerstream select(mapColumn(",
-						"          CustomerID,",
-						"          CompanyName,",
-						"          SalesPerson",
-						"     ),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> selectcolumnscustomer",
-						"selectcolumnscustomer keyGenerate(output(CustomerSK as long),",
-						"     startAt: 1L,",
-						"     stepValue: 1L) ~> CustomerSKstream",
-						"CustomerSKstream derive(CustomerSK = CustomerSK + CustomerSKsink#outputs()[1].CustomerSK) ~> CustomerSKUpdated",
-						"Productstream, DimProductLatest exists(Productstream@ProductID == DimProductLatest@ProductID,",
-						"     negate:true,",
-						"     broadcast: 'auto')~> DoesProductExists1",
-						"CustomerSKUpdated sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     input(",
-						"          CustomerSK as integer,",
-						"          CustomerID as integer,",
-						"          CompanyName as string,",
-						"          SalesPerson as string",
-						"     ),",
-						"     deletable:false,",
-						"     insertable:true,",
-						"     updateable:false,",
-						"     upsertable:false,",
-						"     format: 'table',",
-						"     staged: true,",
-						"     allowCopyCommand: true,",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError',",
-						"     mapColumn(",
-						"          CustomerSK,",
-						"          CustomerID,",
-						"          CompanyName,",
-						"          SalesPerson",
-						"     )) ~> DimCustomerstream",
-						"ProductSKstream sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     input(",
-						"          ProductSK as integer,",
-						"          ProductID as integer,",
-						"          ProductModelID as integer,",
-						"          ProductcategoryID as integer,",
-						"          ProductName as string,",
-						"          ProductModelName as string,",
-						"          ProductCategoryName as string",
-						"     ),",
-						"     deletable:false,",
-						"     insertable:true,",
-						"     updateable:false,",
-						"     upsertable:false,",
-						"     format: 'table',",
-						"     staged: true,",
-						"     allowCopyCommand: true,",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError',",
-						"     mapColumn(",
-						"          ProductSK,",
-						"          ProductID,",
-						"          ProductModelID,",
-						"          ProductcategoryID = ProductCategoryID,",
-						"          ProductName,",
-						"          ProductModelName,",
-						"          ProductCategoryName",
-						"     )) ~> DimProductionStream",
-						"GETMAXCustomerSK sink(validateSchema: false,",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     store: 'cache',",
-						"     format: 'inline',",
-						"     output: false,",
-						"     saveOrder: 1,",
-						"     mapColumn(",
-						"          CustomerSK",
-						"     )) ~> CustomerSKsink"
-					]
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/03_datalfow_logdata')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "logdata_parquet",
-								"type": "DatasetReference"
-							},
-							"name": "logadataparquetstream"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "pool_logdata_parquet",
-								"type": "DatasetReference"
-							},
-							"name": "logdataparquetstream"
-						}
-					],
-					"transformations": [
-						{
-							"name": "filterNULLValues"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          Correlation_id as string,",
-						"          Operation_name as string,",
-						"          Status as string,",
-						"          Event_category as string,",
-						"          Level as string,",
-						"          Time as timestamp,",
-						"          Subscription as string,",
-						"          Event_initiated_by as string,",
-						"          Resource_type as string,",
-						"          Resource_group as string,",
-						"          Resource as string",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     format: 'parquet') ~> logadataparquetstream",
-						"logadataparquetstream filter(!(isNull(Resource_group))) ~> filterNULLValues",
-						"filterNULLValues sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     input(",
-						"          Correlationid as string,",
-						"          Operationname as string,",
-						"          Status as string,",
-						"          Eventcategory as string,",
-						"          Level as string,",
-						"          Time as timestamp,",
-						"          Subscription as string,",
-						"          Eventinitiatedby as string,",
-						"          Resourcetype as string,",
-						"          Resourcegroup as string,",
-						"          Resource as string",
-						"     ),",
-						"     deletable:false,",
-						"     insertable:true,",
-						"     updateable:false,",
-						"     upsertable:false,",
-						"     format: 'table',",
-						"     staged: true,",
-						"     allowCopyCommand: true,",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError',",
-						"     mapColumn(",
-						"          Correlationid = Correlation_id,",
-						"          Operationname = Operation_name,",
-						"          Status,",
-						"          Eventcategory = Event_category,",
-						"          Level,",
-						"          Time,",
-						"          Subscription,",
-						"          Eventinitiatedby = Event_initiated_by,",
-						"          Resourcetype = Resource_type,",
-						"          Resourcegroup = Resource_group,",
-						"          Resource",
-						"     )) ~> logdataparquetstream"
-					]
-				}
-			},
-			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/logdata_parquet')]",
 				"[concat(variables('factoryId'), '/datasets/pool_logdata_parquet')]"
 			]
