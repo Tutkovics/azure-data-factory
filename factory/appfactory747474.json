@@ -1,0 +1,9 @@
+{
+	"name": "appfactory747474",
+	"location": "westeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "62f93c1c-12fd-4fc3-83d1-5bf16e5f37e5",
+		"tenantId": "1f6efbb7-e923-4916-9b2c-88249b90e07e"
+	}
+}
