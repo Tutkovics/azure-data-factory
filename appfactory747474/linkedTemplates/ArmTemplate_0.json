@@ -47,7 +47,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": "https://datalake747474.blob.core.windows.net/csv/Log.csv",
+							"url": "https://datalake747474.blob.core.windows.net/csv/Customer/Customer01.csv",
 							"method": "GET",
 							"headers": {}
 						}
